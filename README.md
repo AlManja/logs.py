@@ -13,4 +13,3 @@ Right now, script parse these logs, with these key words:
     /var/log/pacman.log <= pacsave, pacnew, pacorig, warning    (Arch specific file)
     ~/journalctl.txt <= emergency, alert, critical, failed
 
-Parse errors, warnings... from Linux (Manjaro) log and systemd files

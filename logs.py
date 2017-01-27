@@ -3,11 +3,9 @@ from os.path import expanduser
 """
 This script prints out some errors from log files (Xorg.0.log, Xorg.1.log, pacman.log and journalctl.txt
 It is intended for Linux OS (Arch based: Manjaro) For other Linux versions comment out function: read_pacman()
-Before you run the script, in terminal run: journalctl > journalctl.txt to pipe binary log to txt
-Alternative, run: journalctl -b > /path/to/your/home/journalctl.txt
+Before you run the script, in terminal from your home run: journalctl -b > journalctl.txt to pipe binary log to txt file
+(journalctl -b > /path/to/your/home/journalctl.txt)
 """
-
-# FileNotFoundError:
 
 home = expanduser("~")
 

@@ -1,6 +1,6 @@
 # logs.py
 
-Idea is, to collect different kind of error msgs from different log files on Linux system
+Idea is, to collect different kind of error msgs from different log files on Linux system and display them all at the same time for easier troubleshooting.
 
 For now, script works on Manjaro and probably on other Arch based Linux flavors that use systemd. I'm planning to modify script to make it also compatible with Debian based distributions. 
 

@@ -13,3 +13,7 @@ Right now, script parse these logs, with these key words:
     /var/log/pacman.log <= pacsave, pacnew, pacorig, warning    (Arch specific file)
     ~/journalctl.txt <= emergency, alert, critical, failed
 
+Will work on Linux Mint and parse these two files for now:
+
+    /var/log/Xorg.0.log <= failed, error, (WW)
+    ~/journalctl.txt <= emergency, alert, critical, failed

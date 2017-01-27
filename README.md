@@ -8,12 +8,12 @@ Before you use this script, you should run in terminal: journalctl > journalctl.
 
 Right now, this script parse these logs, with these key words:
 
-/var/log/Xorg.0.log <= failed, error, (WW)
+    /var/log/Xorg.0.log <= failed, error, (WW)
 
-/var/log/Xorg.1.log <= failed, error, (WW)
+    /var/log/Xorg.1.log <= failed, error, (WW)
 
-/var/log/pacman.log <= pacsave, pacnew, pacorig, warning    (Arch specific file)
+    /var/log/pacman.log <= pacsave, pacnew, pacorig, warning    (Arch specific file)
 
-~/journalctl.txt <= emergency, alert, critical, failed
+    ~/journalctl.txt <= emergency, alert, critical, failed
 
 Parse errors, warnings... from Linux (Manjaro) log and systemd files

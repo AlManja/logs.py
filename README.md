@@ -1,7 +1,8 @@
 # mlogs.py (Manjaro Logs)
 
-logs.py is cli
-mlogs.py is GUI (PyQt5)
+logs.py is older, cli version
+
+mlogs.py is current, GUI (PyQt5)
 
 Idea is, to collect different kind of error msgs from different (txt) log files on Linux system and display them all at the same time for easier troubleshooting. This should be something behinner friendly :-)
 

@@ -19,9 +19,9 @@ Right now, this script on Manjaro parse these 4 logs, with these key words:
     /var/log/Xorg.0.log <= failed, error, (WW)
     /var/log/Xorg.1.log <= failed, error, (WW)
     /var/log/pacman.log <= pacsave, pacnew, pacorig, warning    (Arch specific file)
-    ~/journalctl.txt <= emergency, alert, critical, failed
+    /tmp/journalctl.txt <= emergency, alert, critical, failed
 
 On Linux Mint it parse these two files:
 
     /var/log/Xorg.0.log <= failed, error, (WW)
-    ~/journalctl.txt <= emergency, alert, critical, failed
+    /tmp/journalctl.txt <= emergency, alert, critical, failed

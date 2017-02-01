@@ -1,3 +1,4 @@
+import os
 import sys
 from os.path import expanduser
 from PyQt5.QtWidgets import QPushButton, QVBoxLayout, QApplication, QWidget, QCheckBox
@@ -57,8 +58,11 @@ def read_pacman():
 
 def read_journalctl():
     """from journalctl.txt print lines that contain: emergency, alert, critical & failed; 0: emerg, 1: alert 2: crit"""
+
     try:
-        with open(home + '/journalctl.txt', 'r') as f:
+        #with open(home + '/journalctl.txt', 'r') as f:
+        os.system("journalctl -b > /tmp/journalctl.txt")
+        with open("/tmp/journalctl.txt") as f:
             print('==================')
             print('| journalctl.txt |   Searching for: emergency, alert, critical & failed keywords')
             print('==================')
@@ -69,11 +73,7 @@ def read_journalctl():
                     if word in line:
                         print(line, end='')
     except:
-        print('................................')
-        print('. Missing file: journalctl.txt .')
-        print('................................')
-        print('Did you run from terminal (from home): journalctl -b > journalctl.txt')
-        print('or journalctl -b > /path/to/your/home/journalctl.txt) ?')
+        print('Missing file: /tmp/journalctl.txt')
 
 
 class Window(QWidget):

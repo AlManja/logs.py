@@ -11,7 +11,7 @@ I would be happy to add more log searches for different Linux distributions if I
 1 - path to that log file
 2 - what keywords to search for
 
-Before you use this script, you should run in terminal from your home: journalctl -b > journalctl.txt to pipe binary systemd log into journalctl.txt (journalctl -b > /path/to/your/home/journalctl.txt)
+Script runs: journalctl -b > journalctl.txt (current systemd boot errors) and place it into your /tmp/ folder before it uses.
 
 Right now, this script on Manjaro parse these 4 logs, with these key words:
 

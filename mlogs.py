@@ -1,15 +1,28 @@
 import os
 import sys
 from os.path import expanduser
-from PyQt5.QtWidgets import QPushButton, QVBoxLayout, QApplication, QWidget, QCheckBox
+from PyQt5.QtWidgets import QPushButton, QVBoxLayout, QApplication, QWidget, QCheckBox, QToolTip
+from PyQt5.QtGui import QFont
 
 """
-This script prints out some errors from log files (Xorg.0.log, Xorg.1.log, pacman.log and journalctl.txt
-It is intended for Linux OS (Arch based: Manjaro) For other Linux versions comment out function: read_pacman()
-Before you run the script, in terminal run: journalctl -b > /path/to/your/home/journalctl.txt to pipe binary log to txt
+This script prints out 'inxi -Fxzc0' and some errors from log files (Xorg.0.log, Xorg.1.log, pacman.log and journalctl.txt
+It is primarily intended for Linux OS, Arch based: Manjaro. Will probably work on other Linux systems also, but make sure you have installed 'inxi'
 """
 
 home = expanduser("~")
+
+
+def inxi():
+    try:
+        print()
+        print('===============')
+        print('| Inxi -Fxzc0 |   Listing computer information')
+        print('===============')
+        os.system('inxi -Fxzc0')
+        print()
+    except:
+        print('Do you have installed: "inxi" on your system? ')
+
 
 def read_xorg0():
     """from Xorg.0.log print lines that contain words: failed, error, (WW)"""
@@ -58,9 +71,7 @@ def read_pacman():
 
 def read_journalctl():
     """from journalctl.txt print lines that contain: emergency, alert, critical & failed; 0: emerg, 1: alert 2: crit"""
-
     try:
-        #with open(home + '/journalctl.txt', 'r') as f:
         os.system("journalctl -b > /tmp/journalctl.txt")
         with open("/tmp/journalctl.txt") as f:
             print('==================')
@@ -80,29 +91,49 @@ class Window(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.init_ui()
-
-    def init_ui(self):
-
+        self.chkb_0 = QCheckBox('inxi -Fxzc0')
         self.chkb_1 = QCheckBox('Xorg.0.log')
         self.chkb_2 = QCheckBox('Xorg.1.log')
         self.chkb_3 = QCheckBox('pacman.log')
         self.chkb_4 = QCheckBox('journalctl.txt')
         self.btn = QPushButton('Search Log files')
 
+        self.init_ui()
+
+    def init_ui(self):
+        self.setFont(QFont('SansSherif', 16))
+        QToolTip.setFont(QFont('SansSherif', 12))
+
+        self.chkb_0.setToolTip('Inxi gives information about your system')
+        self.chkb_0.toggle()
+
+        self.chkb_1.setToolTip('Xorg (display) server startup log, located: /var/log/Xorg.0.log')
+        self.chkb_1.toggle()
+
+        self.chkb_2.setToolTip('Xorg server (graphical environment) startup log, previous boot')
+        self.chkb_2.toggle()
+
+        self.chkb_3.setToolTip('package manager log, located: /var/log/pacman.log')
+        self.chkb_3.toggle()
+
+        self.chkb_4.setToolTip('Systemd boot error log')
+        self.chkb_4.toggle()
+
         layout = QVBoxLayout()
+        layout.addWidget(self.chkb_0)
         layout.addWidget(self.chkb_1)
         layout.addWidget(self.chkb_2)
         layout.addWidget(self.chkb_3)
         layout.addWidget(self.chkb_4)
         layout.addWidget(self.btn)
-
         self.setLayout(layout)
 
         self.btn.clicked.connect(self.btn_clk)
         self.show()
 
     def btn_clk(self):
+        if self.chkb_0.isChecked():
+            inxi()
         if self.chkb_1.isChecked():
             read_xorg0()
         if self.chkb_2.isChecked():
@@ -112,7 +143,7 @@ class Window(QWidget):
         if self.chkb_4.isChecked():
             read_journalctl()
 
-
 app = QApplication(sys.argv)
 a_window = Window()
 sys.exit(app.exec_())
+

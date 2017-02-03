@@ -32,6 +32,4 @@ On Linux Mint it parse these two files:
 
 
 
-![GitHub Logo](/images/mlogs.png)
-Format: ![Alt Text](url)
 

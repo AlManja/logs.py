@@ -62,7 +62,7 @@ def read_pacman():
             print('| pacman.log |   (searching for: pacsave, pacnew, pacorig and warning keywords')
             print('==============')
             for line in f:
-                if 'pacsave' in line or 'pacnew' in line or 'pacorig' in line or 'warning' in line:
+                if 'pacsave' in line or 'pacnew' in line or 'pacorig' in line:
                     print(line, end='')
         print()
     except:

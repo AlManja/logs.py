@@ -30,4 +30,4 @@ On Linux Mint it parse these two files:
     /tmp/journalctl.txt <= emergency, alert, critical, failed
 
 
-
+#![alt tag](https://raw.githubusercontent.com/AlManja/logs.py/master/mlogs01.png)

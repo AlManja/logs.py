@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 import sys
 from os.path import expanduser
@@ -13,6 +15,7 @@ home = expanduser("~")
 
 
 def inxi():
+    """Full system and hardware information (Inxi -Fxzc0)"""
     try:
         print()
         print('===============')
@@ -54,12 +57,12 @@ def read_xorg1():
         print('Missing file: Xorg.1.log')
 
 
-def read_pacman():
-    """from pacman.log print lines that contain words: pacsave, pacnew, pacorig, warning"""
+def read_pacman1():
+    """from pacman.log print lines that contain words: pacsave, pacnew, pacorig"""
     try:
         with open('/var/log/pacman.log', 'r') as f:
             print('==============')
-            print('| pacman.log |   (searching for: pacsave, pacnew, pacorig and warning keywords')
+            print('| pacman.log |   (searching for: pacsave, pacnew, pacorig keywords')
             print('==============')
             for line in f:
                 if 'pacsave' in line or 'pacnew' in line or 'pacorig' in line:
@@ -68,6 +71,20 @@ def read_pacman():
     except:
         print('Missing file: pacman.log   This is not Arch based distribution?')
 
+
+def read_pacman2():
+    """from pacman.log print lines that contain words: warning"""
+    try:
+        with open('/var/log/pacman.log', 'r') as f:
+            print('==============')
+            print('| pacman.log |   (searching for: warning keyword')
+            print('==============')
+            for line in f:
+                if 'warning' in line:
+                    print(line, end='')
+        print()
+    except:
+        print('Missing file: pacman.log   This is not Arch based distribution?')
 
 
 def read_journalctl_1():
@@ -138,20 +155,20 @@ def read_journalctl_4():
         print('Missing file: /tmp/journalctl.txt')
 
 
-
 class Window(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.chkb_0 = QCheckBox('Inxi - (inxi -Fxzc0)')
-        self.chkb_1 = QCheckBox('Xorg.0 - (/var/log/Xorg.0.log)')
-        self.chkb_2 = QCheckBox('Xorg.1 - /var/log/Xorg.1.log')
-        self.chkb_3 = QCheckBox('pacman.log - (/var/log/pacman.log)')
-        self.chkb_4 = QCheckBox('journalctl.txt  (Emergency)')
-        self.chkb_5 = QCheckBox('journalctl.txt (Alert)')
-        self.chkb_6 = QCheckBox('journalctl.txt - Critical')
-        self.chkb_7 = QCheckBox('journalctl.txt - (Failed)')
-        self.btn = QPushButton('Search Log files')
+        self.checkbox1 = QCheckBox('&Inxi - (inxi -Fxzc0)')
+        self.checkbox2 = QCheckBox('&Xorg.0 - (/var/log/Xorg.0.log)')
+        self.checkbox3 = QCheckBox('X&org.1 - /var/log/Xorg.1.log')
+        self.checkbox4 = QCheckBox('&pacman.log - (/var/log/pacman.log)')
+        self.checkbox5 = QCheckBox('pac&man.log - (/var/log/pacman.log)')
+        self.checkbox6 = QCheckBox('journalctl.txt  (&Emergency)')
+        self.checkbox7 = QCheckBox('journalctl.txt (&Alert)')
+        self.checkbox8 = QCheckBox('journalctl.txt - &Critical')
+        self.checkbox9 = QCheckBox('journalctl.txt - (&Failed)')
+        self.button = QPushButton('&Search Log files')
 
         self.init_ui()
 
@@ -159,60 +176,58 @@ class Window(QWidget):
         self.setFont(QFont('SansSherif', 14))
         QToolTip.setFont(QFont('SansSherif', 12))
 
-        self.chkb_0.setToolTip('Full system and hardware information')
-        self.chkb_0.toggle()
-
-        self.chkb_1.setToolTip('Graphical interface log from current session')
-        self.chkb_1.toggle()
-
-        self.chkb_2.setToolTip('Graphical interface log from previous session')
-        self.chkb_2.toggle()
-
-        self.chkb_3.setToolTip('Package manager log')
-        self.chkb_3.toggle()
-
-        self.chkb_4.setToolTip('Current full system log (to run it manually: journalctl -b')
-        self.chkb_4.toggle()
-
-        self.chkb_5.setToolTip('Current full system log; Search for "Alert"')
-        self.chkb_5.toggle()
-
-        self.chkb_6.setToolTip('Current full system log; Search for "Critical"')
-        self.chkb_6.toggle()
-
-        self.chkb_7.setToolTip('Current full system log; Search for "Failed"')
+        self.checkbox1.setToolTip('Full system and hardware information')
+        self.checkbox1.toggle()
+        self.checkbox2.setToolTip('Graphical interface log from current session')
+        self.checkbox2.toggle()
+        self.checkbox3.setToolTip('Graphical interface log from previous session')
+        self.checkbox3.toggle()
+        self.checkbox4.setToolTip('Package manager log')
+        self.checkbox4.toggle()
+        self.checkbox5.setToolTip('Package manager log')
+        #self.checkbox5.toggle()
+        self.checkbox6.setToolTip('Current full system log (to run it manually: journalctl -b')
+        self.checkbox6.toggle()
+        self.checkbox7.setToolTip('Current full system log; Search for "Alert"')
+        self.checkbox7.toggle()
+        self.checkbox8.setToolTip('Current full system log; Search for "Critical"')
+        self.checkbox8.toggle()
+        self.checkbox9.setToolTip('Current full system log; Search for "Failed"')
 
         layout = QVBoxLayout()
-        layout.addWidget(self.chkb_0)
-        layout.addWidget(self.chkb_1)
-        layout.addWidget(self.chkb_2)
-        layout.addWidget(self.chkb_3)
-        layout.addWidget(self.chkb_4)
-        layout.addWidget(self.chkb_5)
-        layout.addWidget(self.chkb_6)
-        layout.addWidget(self.chkb_7)
-        layout.addWidget(self.btn)
+        layout.addWidget(self.checkbox1)
+        layout.addWidget(self.checkbox2)
+        layout.addWidget(self.checkbox3)
+        layout.addWidget(self.checkbox4)
+        layout.addWidget(self.checkbox5)
+        layout.addWidget(self.checkbox6)
+        layout.addWidget(self.checkbox7)
+        layout.addWidget(self.checkbox8)
+        layout.addWidget(self.checkbox9)
+        layout.addWidget(self.button)
         self.setLayout(layout)
 
-        self.btn.clicked.connect(self.btn_clk)
+        self.button.clicked.connect(self.button_click)
         self.show()
 
-    def btn_clk(self):
-        if self.chkb_0.isChecked():
+    def button_click(self):
+        if self.checkbox1.isChecked():
             inxi()
-        if self.chkb_1.isChecked():
+        if self.checkbox2.isChecked():
             read_xorg0()
-        if self.chkb_2.isChecked():
+        if self.checkbox3.isChecked():
             read_xorg1()
-        if self.chkb_3.isChecked():
-            read_pacman()
-        if self.chkb_4.isChecked():
+        if self.checkbox4.isChecked():
+            read_pacman1()
+        if self.checkbox5.isChecked():
+            read_pacman2()
+        if self.checkbox6.isChecked():
             read_journalctl_1()
-        if self.chkb_5.isChecked():
+        if self.checkbox7.isChecked():
             read_journalctl_2()
-        if self.chkb_6.isChecked():
+        if self.checkbox8.isChecked():
             read_journalctl_3()
-        if self.chkb_7.isChecked():
+        if self.checkbox9.isChecked():
             read_journalctl_4()
 
 app = QApplication(sys.argv)

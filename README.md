@@ -1,8 +1,7 @@
 # mlogs.py (Manjaro Logs)
 
-logs.py is older, cli version
-
-mlogs.py is current, GUI (PyQt5)
+mlogsqt4.py (PyQt4)
+mlogs.py    (PyQt5)
 
 Idea is, to collect different kind of error msgs from different (txt) log files on Linux system and display them all at the same time for easier troubleshooting. This should be something behinner friendly :-)
 
@@ -14,7 +13,11 @@ I would be happy to add more log searches for different Linux distributions if I
 
 Script runs: journalctl -b > journalctl.txt (current systemd boot errors) and place it into your /tmp/ folder before it uses.
 
-Right now, this script on Manjaro parse these 4 logs, with these key words:
+For now, search keywords are hardcoded.
+Select files/logs you want to search. 
+If you select Inxi, make sure you have it installed :-)
+
+For better control over output, journalctl is split into 4 searches each for each keyword: emergency, alert, critical, failed
 
     /var/log/Xorg.0.log <= failed, error, (WW)
     /var/log/Xorg.1.log <= failed, error, (WW)

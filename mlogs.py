@@ -163,7 +163,7 @@ class Window(QWidget):
         self.checkbox2 = QCheckBox('&Xorg.0 - (/var/log/Xorg.0.log)')
         self.checkbox3 = QCheckBox('X&org.1 - /var/log/Xorg.1.log')
         self.checkbox4 = QCheckBox('&pacman.log - (/var/log/pacman.log)')
-        self.checkbox5 = QCheckBox('pac&man.log - (/var/log/pacman.log)')
+        self.checkbox5 = QCheckBox('pac&man.log - (+warnings)')
         self.checkbox6 = QCheckBox('journalctl.txt  (&Emergency)')
         self.checkbox7 = QCheckBox('journalctl.txt (&Alert)')
         self.checkbox8 = QCheckBox('journalctl.txt - &Critical')
@@ -233,4 +233,3 @@ class Window(QWidget):
 app = QApplication(sys.argv)
 a_window = Window()
 sys.exit(app.exec_())
-

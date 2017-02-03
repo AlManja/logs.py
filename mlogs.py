@@ -69,16 +69,16 @@ def read_pacman():
         print('Missing file: pacman.log   This is not Arch based distribution?')
 
 
-def read_journalctl():
-    """from journalctl.txt print lines that contain: emergency, alert, critical & failed; 0: emerg, 1: alert 2: crit"""
+
+def read_journalctl_1():
+    """from journalctl.txt returns lines that contain keyword: emergency"""
     try:
-        os.system("journalctl -b > /tmp/journalctl.txt")
+        os.system("journalctl -b > /tmp/journalctl1.txt")
         with open("/tmp/journalctl.txt") as f:
             print('==================')
-            print('| journalctl.txt |   Searching for: emergency, alert, critical & failed keywords')
+            print('| journalctl.txt |   Searching for: Emergency keywords')
             print('==================')
-            key_word = ['emergency', 'Emergency', 'EMERGENCY', 'alert', 'Alert', 'ALERT', 'critical', 'Critical',
-                        'CRITICAL', 'failed']
+            key_word = ['emergency', 'Emergency', 'EMERGENCY']
             for line in f:
                 for word in key_word:
                     if word in line:
@@ -87,37 +87,100 @@ def read_journalctl():
         print('Missing file: /tmp/journalctl.txt')
 
 
+def read_journalctl_2():
+    """from journalctl.txt returns lines that contain: alert"""
+    try:
+        os.system("journalctl -b > /tmp/journalctl2.txt")
+        with open("/tmp/journalctl.txt") as f:
+            print('==================')
+            print('| journalctl.txt |   Searching for: Alert keywords')
+            print('==================')
+            key_word = ['alert', 'Alert', 'ALERT']
+            for line in f:
+                for word in key_word:
+                    if word in line:
+                        print(line, end='')
+    except:
+        print('Missing file: /tmp/journalctl.txt')
+
+
+def read_journalctl_3():
+    """from journalctl.txt returns lines that contain: critical"""
+    try:
+        os.system("journalctl -b > /tmp/journalctl3.txt")
+        with open("/tmp/journalctl.txt") as f:
+            print('==================')
+            print('| journalctl.txt |   Searching for: Critical keywords')
+            print('==================')
+            key_word = ['critical', 'Critical', 'CRITICAL']
+            for line in f:
+                for word in key_word:
+                    if word in line:
+                        print(line, end='')
+    except:
+        print('Missing file: /tmp/journalctl.txt')
+
+
+def read_journalctl_4():
+    """from journalctl.txt returns lines that contain: failed"""
+    try:
+        os.system("journalctl -b > /tmp/journalctl4.txt")
+        with open("/tmp/journalctl.txt") as f:
+            print('==================')
+            print('| journalctl.txt |   Searching for: Failed keywords')
+            print('==================')
+            key_word = ['failed', 'Failed', 'FAILED']
+            for line in f:
+                for word in key_word:
+                    if word in line:
+                        print(line, end='')
+    except:
+        print('Missing file: /tmp/journalctl.txt')
+
+
+
 class Window(QWidget):
 
     def __init__(self):
         super().__init__()
-        self.chkb_0 = QCheckBox('inxi -Fxzc0')
-        self.chkb_1 = QCheckBox('Xorg.0.log')
-        self.chkb_2 = QCheckBox('Xorg.1.log')
-        self.chkb_3 = QCheckBox('pacman.log')
-        self.chkb_4 = QCheckBox('journalctl.txt')
+        self.chkb_0 = QCheckBox('Inxi - (inxi -Fxzc0)')
+        self.chkb_1 = QCheckBox('Xorg.0 - (/var/log/Xorg.0.log)')
+        self.chkb_2 = QCheckBox('Xorg.1 - /var/log/Xorg.1.log')
+        self.chkb_3 = QCheckBox('pacman.log - (/var/log/pacman.log)')
+        self.chkb_4 = QCheckBox('journalctl.txt  (Emergency)')
+        self.chkb_5 = QCheckBox('journalctl.txt (Alert)')
+        self.chkb_6 = QCheckBox('journalctl.txt - Critical')
+        self.chkb_7 = QCheckBox('journalctl.txt - (Failed)')
         self.btn = QPushButton('Search Log files')
 
         self.init_ui()
 
     def init_ui(self):
-        self.setFont(QFont('SansSherif', 16))
+        self.setFont(QFont('SansSherif', 14))
         QToolTip.setFont(QFont('SansSherif', 12))
 
-        self.chkb_0.setToolTip('Inxi gives information about your system')
+        self.chkb_0.setToolTip('Full system and hardware information')
         self.chkb_0.toggle()
 
-        self.chkb_1.setToolTip('Xorg (display) server startup log, located: /var/log/Xorg.0.log')
+        self.chkb_1.setToolTip('Graphical interface log from current session')
         self.chkb_1.toggle()
 
-        self.chkb_2.setToolTip('Xorg server (graphical environment) startup log, previous boot')
+        self.chkb_2.setToolTip('Graphical interface log from previous session')
         self.chkb_2.toggle()
 
-        self.chkb_3.setToolTip('package manager log, located: /var/log/pacman.log')
+        self.chkb_3.setToolTip('Package manager log')
         self.chkb_3.toggle()
 
-        self.chkb_4.setToolTip('Systemd boot error log')
+        self.chkb_4.setToolTip('Current full system log (to run it manually: journalctl -b')
         self.chkb_4.toggle()
+
+        self.chkb_5.setToolTip('Current full system log; Search for "Alert"')
+        self.chkb_5.toggle()
+
+        self.chkb_6.setToolTip('Current full system log; Search for "Critical"')
+        self.chkb_6.toggle()
+
+        self.chkb_7.setToolTip('Current full system log; Search for "Failed"')
 
         layout = QVBoxLayout()
         layout.addWidget(self.chkb_0)
@@ -125,6 +188,9 @@ class Window(QWidget):
         layout.addWidget(self.chkb_2)
         layout.addWidget(self.chkb_3)
         layout.addWidget(self.chkb_4)
+        layout.addWidget(self.chkb_5)
+        layout.addWidget(self.chkb_6)
+        layout.addWidget(self.chkb_7)
         layout.addWidget(self.btn)
         self.setLayout(layout)
 
@@ -141,7 +207,13 @@ class Window(QWidget):
         if self.chkb_3.isChecked():
             read_pacman()
         if self.chkb_4.isChecked():
-            read_journalctl()
+            read_journalctl_1()
+        if self.chkb_5.isChecked():
+            read_journalctl_2()
+        if self.chkb_6.isChecked():
+            read_journalctl_3()
+        if self.chkb_7.isChecked():
+            read_journalctl_4()
 
 app = QApplication(sys.argv)
 a_window = Window()

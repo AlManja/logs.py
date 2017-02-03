@@ -29,6 +29,5 @@ On Linux Mint it parse these two files:
     /var/log/Xorg.0.log <= failed, error, (WW)
     /tmp/journalctl.txt <= emergency, alert, critical, failed
 
-[mlogs.png]
 
 

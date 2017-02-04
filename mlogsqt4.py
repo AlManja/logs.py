@@ -23,7 +23,7 @@ class Window(QtGui.QWidget):
         checkbox2 = QtGui.QCheckBox('&Xorg.0 - (/var/log/Xorg.0.log)')      # the shortcut key is ALT + x
         checkbox3 = QtGui.QCheckBox('X&org.1 - (/var/log/Xorg.1.log)')
         checkbox4 = QtGui.QCheckBox('&pacman.log - (/var/log/pacman.log)')
-        checkbox5 = QtGui.QCheckBox('&pacman.log - (+Warnings)')
+        # checkbox5 = QtGui.QCheckBox('&pacman.log - (+Warnings)')
         checkbox6 = QtGui.QCheckBox('journalctl.txt - (&Emergency)')
         checkbox7 = QtGui.QCheckBox('journalctl.txt - (&Alert)')
         checkbox8 = QtGui.QCheckBox('journalctl.txt - (&Critical)')
@@ -36,7 +36,7 @@ class Window(QtGui.QWidget):
         checkbox2.stateChanged.connect(self.checkbox2_state_changed)
         checkbox3.stateChanged.connect(self.checkbox3_state_changed)
         checkbox4.stateChanged.connect(self.checkbox4_state_changed)
-        checkbox5.stateChanged.connect(self.checkbox5_state_changed)
+        # checkbox5.stateChanged.connect(self.checkbox5_state_changed)
         checkbox6.stateChanged.connect(self.checkbox6_state_changed)
         checkbox7.stateChanged.connect(self.checkbox7_state_changed)
         checkbox8.stateChanged.connect(self.checkbox8_state_changed)
@@ -51,7 +51,7 @@ class Window(QtGui.QWidget):
         vlayout.addWidget(checkbox2)  # adds the checkbox to the layout
         vlayout.addWidget(checkbox3)  # adds the checkbox to the layout
         vlayout.addWidget(checkbox4)
-        vlayout.addWidget(checkbox5)
+        # vlayout.addWidget(checkbox5)
         vlayout.addWidget(checkbox6)
         vlayout.addWidget(checkbox7)
         vlayout.addWidget(checkbox8)
@@ -150,7 +150,7 @@ class Window(QtGui.QWidget):
         """from journalctl.txt returns lines that contain keyword: emergency"""
         if state == Qt.Checked:
             try:
-                os.system("journalctl -b > /tmp/journalctl1.txt")
+                os.system("journalctl -b > /tmp/journalctl.txt")
                 with open("/tmp/journalctl.txt") as f:
                     print('==================')
                     print('| journalctl.txt |   Searching for: Emergency keywords')
@@ -167,7 +167,7 @@ class Window(QtGui.QWidget):
         """from journalctl.txt returns lines that contain: alert"""
         if state == Qt.Checked:
             try:
-                os.system("journalctl -b > /tmp/journalctl2.txt")
+                os.system("journalctl -b > /tmp/journalctl.txt")
                 with open("/tmp/journalctl.txt") as f:
                     print('==================')
                     print('| journalctl.txt |   Searching for: Alert keywords')
@@ -184,7 +184,7 @@ class Window(QtGui.QWidget):
         """from journalctl.txt returns lines that contain: critical"""
         if state == Qt.Checked:
             try:
-                os.system("journalctl -b > /tmp/journalctl3.txt")
+                os.system("journalctl -b > /tmp/journalctl.txt")
                 with open("/tmp/journalctl.txt") as f:
                     print('==================')
                     print('| journalctl.txt |   Searching for: Critical keywords')
@@ -201,7 +201,7 @@ class Window(QtGui.QWidget):
         """from journalctl.txt returns lines that contain: failed"""
         if state == Qt.Checked:
             try:
-                os.system("journalctl -b > /tmp/journalctl4.txt")
+                os.system("journalctl -b > /tmp/journalctl.txt")
                 with open("/tmp/journalctl.txt") as f:
                     print('==================')
                     print('| journalctl.txt |   Searching for: Failed keywords')

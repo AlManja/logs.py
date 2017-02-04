@@ -12,7 +12,7 @@ It is primarily intended for Linux OS, Arch based: Manjaro. Will probably work o
 """
 
 home = expanduser("~")
-
+#os.system("journalctl -b > /tmp/journalctl.txt")
 
 def inxi():
     """Full system and hardware information (Inxi -Fxzc0)"""
@@ -90,7 +90,7 @@ def read_pacman2():
 def read_journalctl_1():
     """from journalctl.txt returns lines that contain keyword: emergency"""
     try:
-        os.system("journalctl -b > /tmp/journalctl1.txt")
+        os.system("journalctl -b > /tmp/journalctl.txt")
         with open("/tmp/journalctl.txt") as f:
             print('==================')
             print('| journalctl.txt |   Searching for: Emergency keywords')
@@ -107,7 +107,7 @@ def read_journalctl_1():
 def read_journalctl_2():
     """from journalctl.txt returns lines that contain: alert"""
     try:
-        os.system("journalctl -b > /tmp/journalctl2.txt")
+        os.system("journalctl -b > /tmp/journalctl.txt")
         with open("/tmp/journalctl.txt") as f:
             print('==================')
             print('| journalctl.txt |   Searching for: Alert keywords')
@@ -124,7 +124,7 @@ def read_journalctl_2():
 def read_journalctl_3():
     """from journalctl.txt returns lines that contain: critical"""
     try:
-        os.system("journalctl -b > /tmp/journalctl3.txt")
+        os.system("journalctl -b > /tmp/journalctl.txt")
         with open("/tmp/journalctl.txt") as f:
             print('==================')
             print('| journalctl.txt |   Searching for: Critical keywords')
@@ -141,7 +141,7 @@ def read_journalctl_3():
 def read_journalctl_4():
     """from journalctl.txt returns lines that contain: failed"""
     try:
-        os.system("journalctl -b > /tmp/journalctl4.txt")
+        os.system("journalctl -b > /tmp/journalctl.txt")
         with open("/tmp/journalctl.txt") as f:
             print('==================')
             print('| journalctl.txt |   Searching for: Failed keywords')
@@ -161,19 +161,19 @@ class Window(QWidget):
         super().__init__()
         self.checkbox1 = QCheckBox('&Inxi - (inxi -Fxzc0)')
         self.checkbox2 = QCheckBox('&Xorg.0 - (/var/log/Xorg.0.log)')
-        self.checkbox3 = QCheckBox('X&org.1 - /var/log/Xorg.1.log')
+        self.checkbox3 = QCheckBox('X&org.1 - (/var/log/Xorg.1.log)')
         self.checkbox4 = QCheckBox('&pacman.log - (/var/log/pacman.log)')
-        self.checkbox5 = QCheckBox('pac&man.log - (+warnings)')
-        self.checkbox6 = QCheckBox('journalctl.txt  (&Emergency)')
-        self.checkbox7 = QCheckBox('journalctl.txt (&Alert)')
-        self.checkbox8 = QCheckBox('journalctl.txt - &Critical')
+        # self.checkbox5 = QCheckBox('pac&man.log - (+warnings)')
+        self.checkbox6 = QCheckBox('journalctl.txt - (&Emergency)')
+        self.checkbox7 = QCheckBox('journalctl.txt - (&Alert)')
+        self.checkbox8 = QCheckBox('journalctl.txt - (&Critical)')
         self.checkbox9 = QCheckBox('journalctl.txt - (&Failed)')
         self.button = QPushButton('&Search Log files')
 
         self.init_ui()
 
     def init_ui(self):
-        self.setFont(QFont('SansSherif', 14))
+        self.setFont(QFont('SansSherif', 13))
         QToolTip.setFont(QFont('SansSherif', 12))
 
         self.checkbox1.setToolTip('Full system and hardware information')
@@ -184,8 +184,8 @@ class Window(QWidget):
         self.checkbox3.toggle()
         self.checkbox4.setToolTip('Package manager log')
         self.checkbox4.toggle()
-        self.checkbox5.setToolTip('Package manager log')
-        #self.checkbox5.toggle()
+        # self.checkbox5.setToolTip('Package manager log')
+        # self.checkbox5.toggle()
         self.checkbox6.setToolTip('Current full system log (to run it manually: journalctl -b')
         self.checkbox6.toggle()
         self.checkbox7.setToolTip('Current full system log; Search for "Alert"')
@@ -199,7 +199,7 @@ class Window(QWidget):
         layout.addWidget(self.checkbox2)
         layout.addWidget(self.checkbox3)
         layout.addWidget(self.checkbox4)
-        layout.addWidget(self.checkbox5)
+        # layout.addWidget(self.checkbox5)
         layout.addWidget(self.checkbox6)
         layout.addWidget(self.checkbox7)
         layout.addWidget(self.checkbox8)
@@ -219,8 +219,8 @@ class Window(QWidget):
             read_xorg1()
         if self.checkbox4.isChecked():
             read_pacman1()
-        if self.checkbox5.isChecked():
-            read_pacman2()
+        # if self.checkbox5.isChecked():
+        #     read_pacman2()
         if self.checkbox6.isChecked():
             read_journalctl_1()
         if self.checkbox7.isChecked():

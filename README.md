@@ -29,5 +29,9 @@ On Linux Mint it parse these two files:
     /var/log/Xorg.0.log <= failed, error, (WW)
     /tmp/journalctl.txt <= emergency, alert, critical, failed
 
+First button saves info file and show it into text editor. 
+Second button is not active yet
+
+Picture is a little bit outdated :-)
 
 #![alt tag](https://raw.githubusercontent.com/AlManja/logs.py/master/mlogs01.png)

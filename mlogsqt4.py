@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
 import os
-import sys                         # provides interaction with the Python interpreter
+import sys                           # provides interaction with the Python interpreter
 from functools import partial
-from PyQt4 import QtGui            # provides the graphic elements
-from PyQt4.QtCore import pyqtSlot  # provides the 'pyqtSlot()' decorator
-from PyQt4.QtCore import Qt        # provides Qt identifiers
-from PyQt4.QtGui import QApplication, QPushButton
-from sh import inxi               # The sh library is awesome for linux users
+from PyQt4 import QtGui              # provides the graphic elements
+from PyQt4.QtCore import pyqtSlot    # provides the 'pyqtSlot()' decorator
+from PyQt4.QtCore import Qt          # provides Qt identifiers
+from PyQt4.QtGui import QPushButton, QApplication
+from sh import inxi                  # The sh library is awesome for linux users
 
 chkbut1=0
 chkbut2=0
@@ -33,8 +33,8 @@ class Window(QtGui.QWidget):
         checkbox8 = QtGui.QCheckBox('journalctl.txt - (&Critical)')
         checkbox9 = QtGui.QCheckBox('journalctl.txt - (&Failed)')
 
-        btn = QPushButton("&Save to File (/tmp/mlogsout.txt))", self)
-        btn2 = QPushButton("&Show in file text editor", self)
+        btn = QPushButton("&Show Errors (/tmp/mlogsout.txt))", self)
+        btn2 = QPushButton("&PasteBin - not working yet", self)
 
         # connects the 'stateChanged()' signal with the 'checkbox_state_changed()' slot
         checkbox1.stateChanged.connect(self.checkbox1_state_changed)
@@ -47,7 +47,9 @@ class Window(QtGui.QWidget):
         checkbox9.stateChanged.connect(self.checkbox9_state_changed)
 
         btn.clicked.connect(partial(self.to_computer))
-        btn2.clicked.connect(self.to_editor)
+        btn.clicked.connect(self.to_editor)
+        # btn.clicked.connect(partial(self.to_computer))
+        # btn2.clicked.connect(self.to_web)
 
 
         # creates a vertical box layout for the window
@@ -88,7 +90,6 @@ class Window(QtGui.QWidget):
         if state == Qt.Checked:
             global chkbut3
             chkbut3=1
-
         if state != Qt.Checked:
             chkbut3=0
 
@@ -131,9 +132,6 @@ class Window(QtGui.QWidget):
             chkbut9 = 1
         if state != Qt.Checked:
             chkbut9=0
-
-    def to_editor(self):
-        os.system("xdg-open /tmp/mlogsout.txt")
 
     def to_computer(self, text):
         f = open('/tmp/mlogsout.txt', 'w')  # write mode clears any previous content from the file if it exists
@@ -237,6 +235,12 @@ class Window(QtGui.QWidget):
             f.write('\n')
 
         f.close()
+
+    def to_editor(self):
+        os.system("xdg-open /tmp/mlogsout.txt")
+
+    def to_web(self):
+        pass
 
 # creates the application and takes arguments from the command line
 application = QtGui.QApplication(sys.argv)

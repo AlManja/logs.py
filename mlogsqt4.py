@@ -72,38 +72,31 @@ class Window(QtGui.QWidget):
         if state == Qt.Checked:
             global chkbut1
             chkbut1=1
-            # print(chkbut1)
         if state != Qt.Checked:
             chkbut1=0
-            # print(chkbut1)
 
     def checkbox2_state_changed(self, state):
         """from Xorg.0.log print lines that contain words: failed, error, (WW)"""
         if state == Qt.Checked:
             global chkbut2
             chkbut2=1
-            # print(chkbut2)
         if state != Qt.Checked:
             chkbut2=0
-            # print(chkbut2)
 
     def checkbox3_state_changed(self, state):
         """from Xorg.1.log print lines that contain words: failed, error, (WW)"""
         if state == Qt.Checked:
             global chkbut3
             chkbut3=1
-            # print(chkbut3)
 
         if state != Qt.Checked:
             chkbut3=0
-            # print(chkbut3)
 
     def checkbox4_state_changed(self, state):
         """from pacman.log print lines that contain words: pacsave, pacnew, pacorig"""
         if state == Qt.Checked:
             global chkbut4
             chkbut4=1
-            # print(chkbut4)
         if state != Qt.Checked:
             chkbut4=0
 
@@ -112,7 +105,6 @@ class Window(QtGui.QWidget):
         if state == Qt.Checked:
             global chkbut6
             chkbut6 = 1
-            # print(chkbut6)
         if state != Qt.Checked:
             chkbut6=0
 
@@ -121,7 +113,6 @@ class Window(QtGui.QWidget):
         if state == Qt.Checked:
             global chkbut7
             chkbut7 = 1
-            # print(chkbut7)
         if state != Qt.Checked:
             chkbut7=0
 
@@ -130,7 +121,6 @@ class Window(QtGui.QWidget):
         if state == Qt.Checked:
             global chkbut8
             chkbut8 = 1
-            # print(chkbut8)
         if state != Qt.Checked:
             chkbut8=0
 
@@ -139,7 +129,6 @@ class Window(QtGui.QWidget):
         if state == Qt.Checked:
             global chkbut9
             chkbut9 = 1
-            # print(chkbut9)
         if state != Qt.Checked:
             chkbut9=0
 

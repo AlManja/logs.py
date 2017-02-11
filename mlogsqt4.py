@@ -34,7 +34,7 @@ class Window(QtGui.QWidget):
         checkbox9 = QtGui.QCheckBox('journalctl.txt - (&Failed)')
 
         btn = QPushButton("&Save to File (/tmp/mlogsout.txt))", self)
-        btn2 = QPushButton("&Upload to Dpaste (not working)", self)
+        btn2 = QPushButton("&Show in file text editor", self)
 
         # connects the 'stateChanged()' signal with the 'checkbox_state_changed()' slot
         checkbox1.stateChanged.connect(self.checkbox1_state_changed)
@@ -47,6 +47,7 @@ class Window(QtGui.QWidget):
         checkbox9.stateChanged.connect(self.checkbox9_state_changed)
 
         btn.clicked.connect(partial(self.to_computer))
+        btn2.clicked.connect(self.to_editor)
 
 
         # creates a vertical box layout for the window
@@ -72,15 +73,6 @@ class Window(QtGui.QWidget):
             global chkbut1
             chkbut1=1
             # print(chkbut1)
-            try:
-                print()
-                print('===============')
-                print('| Inxi -Fxzc0 |   Listing computer information')
-                print('===============')
-                os.system('inxi -Fxzc0')
-                print()
-            except:
-                print('Do you have installed: "inxi" on your system? ')
         if state != Qt.Checked:
             chkbut1=0
             # print(chkbut1)
@@ -91,17 +83,6 @@ class Window(QtGui.QWidget):
             global chkbut2
             chkbut2=1
             # print(chkbut2)
-            try:
-                with open('/var/log/Xorg.0.log', 'r') as f:
-                    print('==============')
-                    print('| Xorg.0.log |   (searching for: failed, error & (WW) keywords')
-                    print('==============')
-                    for line in f:
-                        if 'failed' in line or 'error' in line or '(WW)' in line:
-                            print(line, end='')
-                print()
-            except:
-                print('Missing file: Xorg.0.log')
         if state != Qt.Checked:
             chkbut2=0
             # print(chkbut2)
@@ -112,17 +93,6 @@ class Window(QtGui.QWidget):
             global chkbut3
             chkbut3=1
             # print(chkbut3)
-            try:
-                with open('/var/log/Xorg.1.log', 'r') as f:
-                    print('==============')
-                    print('| Xorg.1.log |   (searching for: failed, error & (WW) keywords')
-                    print('==============')
-                    for line in f:
-                        if 'failed' in line or 'error' in line or '(WW)' in line:
-                            print(line, end='')
-                print()
-            except:
-                print('Missing file: Xorg.1.log')
 
         if state != Qt.Checked:
             chkbut3=0
@@ -134,18 +104,6 @@ class Window(QtGui.QWidget):
             global chkbut4
             chkbut4=1
             # print(chkbut4)
-            try:
-                with open('/var/log/pacman.log', 'r') as f:
-                    print('==============')
-                    print('| pacman.log |   (searching for: pacsave, pacnew, pacorig keywords')
-                    print('==============')
-                    for line in f:
-                        if 'pacsave' in line or 'pacnew' in line or 'pacorig' in line:
-                            print(line, end='')
-                print()
-            except:
-                print('Missing file: pacman.log   This is not Arch based distribution?')
-
         if state != Qt.Checked:
             chkbut4=0
 
@@ -155,20 +113,6 @@ class Window(QtGui.QWidget):
             global chkbut6
             chkbut6 = 1
             # print(chkbut6)
-            try:
-                os.system("journalctl -b > /tmp/journalctl.txt")
-                with open("/tmp/journalctl.txt") as f:
-                    print('==================')
-                    print('| journalctl.txt |   Searching for: Emergency keywords')
-                    print('==================')
-                    key_word = ['emergency', 'Emergency', 'EMERGENCY']
-                    for line in f:
-                        for word in key_word:
-                            if word in line:
-                                print(line, end='')
-            except:
-                print('Missing file: /tmp/journalctl.txt')
-
         if state != Qt.Checked:
             chkbut6=0
 
@@ -178,20 +122,6 @@ class Window(QtGui.QWidget):
             global chkbut7
             chkbut7 = 1
             # print(chkbut7)
-            try:
-                os.system("journalctl -b > /tmp/journalctl.txt")
-                with open("/tmp/journalctl.txt") as f:
-                    print('==================')
-                    print('| journalctl.txt |   Searching for: Alert keywords')
-                    print('==================')
-                    key_word = ['alert', 'Alert', 'ALERT']
-                    for line in f:
-                        for word in key_word:
-                            if word in line:
-                                print(line, end='')
-            except:
-                print('Missing file: /tmp/journalctl.txt')
-
         if state != Qt.Checked:
             chkbut7=0
 
@@ -201,20 +131,6 @@ class Window(QtGui.QWidget):
             global chkbut8
             chkbut8 = 1
             # print(chkbut8)
-            try:
-                os.system("journalctl -b > /tmp/journalctl.txt")
-                with open("/tmp/journalctl.txt") as f:
-                    print('==================')
-                    print('| journalctl.txt |   Searching for: Critical keywords')
-                    print('==================')
-                    key_word = ['critical', 'Critical', 'CRITICAL']
-                    for line in f:
-                        for word in key_word:
-                            if word in line:
-                                print(line, end='')
-            except:
-                print('Missing file: /tmp/journalctl.txt')
-
         if state != Qt.Checked:
             chkbut8=0
 
@@ -224,22 +140,11 @@ class Window(QtGui.QWidget):
             global chkbut9
             chkbut9 = 1
             # print(chkbut9)
-            try:
-                os.system("journalctl -b > /tmp/journalctl.txt")
-                with open("/tmp/journalctl.txt") as f:
-                    print('==================')
-                    print('| journalctl.txt |   Searching for: Failed keywords')
-                    print('==================')
-                    key_word = ['failed', 'Failed', 'FAILED']
-                    for line in f:
-                        for word in key_word:
-                            if word in line:
-                                print(line, end='')
-            except:
-                print('Missing file: /tmp/journalctl.txt')
-
         if state != Qt.Checked:
             chkbut9=0
+
+    def to_editor(self):
+        os.system("xdg-open /tmp/mlogsout.txt")
 
     def to_computer(self, text):
         f = open('/tmp/mlogsout.txt', 'w')  # write mode clears any previous content from the file if it exists

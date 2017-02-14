@@ -1,6 +1,6 @@
 # mlogs.py (Manjaro Logs)
 
-    mlogs.py    (PyQt5)
+
     mlogsqt4.py (PyQt4)
 
 Idea is, to collect different kind of error msgs from different (txt) log files on Linux system and display them all at the same time for easier troubleshooting. This should be something behinner friendly :-)

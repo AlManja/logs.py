@@ -12,9 +12,9 @@ from sh import inxi                  # The sh library is awesome for linux users
 TMP_FILE = "/tmp/mlogsout.txt"
 
 HEADER = '''
-=================
-|{:^15}|   {}
-=================
+==================
+|{:^16}|   {}
+==================
 '''
 
 checkbuttons = [
@@ -28,16 +28,18 @@ checkbuttons = [
     'journalctl.txt - (&Failed)',
 ]
 
+
 def look_in_file(file_name, kws):
     """reads a file and returns only the lines that contain one of the keywords"""
     with open(file_name) as f:
         return "".join(filter(lambda line: any(kw in line for kw in kws), f))
 
+
 class Window(QtGui.QWidget):
     def __init__(self, parent=None):
         super(Window, self).__init__(parent)
 
-        self.checks = [False]*len(checkbuttons) # initialize all buttons to False
+        self.checks = [False]*len(checkbuttons)  # initialize all buttons to False
 
         # creates a vertical box layout for the window
         vlayout = QtGui.QVBoxLayout()
@@ -46,13 +48,14 @@ class Window(QtGui.QWidget):
             checkbox = QtGui.QCheckBox(text)
             # connects the 'stateChanged()' signal with the 'checkbox_state_changed()' slot
             checkbox.stateChanged.connect(partial(self.checkbox_state_changed, idx))
-            vlayout.addWidget(checkbox) # adds the checkbox to the layout
+            vlayout.addWidget(checkbox)  # adds the checkbox to the layout
 
         btn = QPushButton("&Show Errors ({})".format(TMP_FILE), self)
         btn2 = QPushButton("&PasteBin - not working yet", self)
 
         btn.clicked.connect(self.to_computer)
         btn.clicked.connect(self.to_editor)
+        # btn2.clicked.connect(self.to_web)
 
         vlayout.addWidget(btn)
         vlayout.addWidget(btn2)
@@ -81,13 +84,21 @@ class Window(QtGui.QWidget):
         if self.checks[2]:
             print("Saving: Xorg.1.log to file")
             f.write(HEADER.format("Xorg.1.log", "searching for: failed, error & (WW) keywords"))
-            f.write(look_in_file('/var/log/Xorg.1.log', ['failed', 'error', '(WW)']))
+            try:
+                f.write(look_in_file('/var/log/Xorg.1.log', ['failed', 'error', '(WW)']))
+            except FileNotFoundError:
+                print("/var/log/Xorg.1.log not found, this is not Manjaro?")
+                f.write("Xorg.1.log not found!")
             f.write('\n')
 
         if self.checks[3]:
             print("Saving: pacman.log to file")
             f.write(HEADER.format("pacman.log", "searching for: pacsave, pacnew, pacorig keywords"))
-            f.write(look_in_file('/var/log/pacman.log', ['pacsave', 'pacnew', 'pacorig']))
+            try:
+                f.write(look_in_file('/var/log/pacman.log', ['pacsave', 'pacnew', 'pacorig']))
+            except FileNotFoundError:
+                print("/var/log/pacman.log not found, this is not Manjaro?")
+                f.write("pacman.log not found!")
             f.write('\n')
 
         if self.checks[4]:

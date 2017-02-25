@@ -25,6 +25,7 @@ checkbuttons = [
     'journalctl.txt - (&Alert)',
     'journalctl.txt - (&Critical)',
     'journalctl.txt - (&Failed)',
+    'OpenRc - &rc.log - (/var/log/rc.log)',
 ]
 
 
@@ -86,7 +87,7 @@ class Window(QtGui.QWidget):
             try:
                 f.write(look_in_file('/var/log/Xorg.1.log', ['failed', 'error', '(WW)']))
             except FileNotFoundError:
-                print("/var/log/Xorg.1.log not found, this is not Manjaro?")
+                print("/var/log/Xorg.1.log not found!")
                 f.write("Xorg.1.log not found!")
             f.write('\n')
 
@@ -97,7 +98,7 @@ class Window(QtGui.QWidget):
                 f.write(look_in_file('/var/log/pacman.log', ['pacsave', 'pacnew', 'pacorig']))
             except FileNotFoundError:
                 print("/var/log/pacman.log not found, this is not Manjaro or Arch based Linux?")
-                f.write("pacman.log not found!")
+                f.write("pacman.log not found!  Not Arch based OS?")
             f.write('\n')
 
         if self.checks[4]:
@@ -126,6 +127,16 @@ class Window(QtGui.QWidget):
             os.system("journalctl -b > /tmp/journalctl.txt")
             f.write(HEADER.format("journalctl.txt", "Searching for: Failed keywords"))
             f.write(look_in_file('/tmp/journalctl.txt', ['failed', 'Failed', 'FAILED']))
+            f.write('\n')
+
+        if self.checks[8]:
+            # print("Saving: rc.log to file")
+            f.write(HEADER.format("rc.log", "OpenRc only! searching for: WARNING: keywords"))
+            try:
+                f.write(look_in_file('/var/log/rc.log', ['failed', 'error', 'WARNING:']))
+            except FileNotFoundError:
+                print("/var/log/rc.log not found!     Systemd based OS?")
+                f.write("rc.log not found!   Systemd based OS?")
             f.write('\n')
 
         f.close()

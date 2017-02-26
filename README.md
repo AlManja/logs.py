@@ -30,4 +30,4 @@ For all the help on Reddit, Manjaro forum and here!
 
 Picture is a little bit outdated :-)
 
-#![alt tag](https://raw.githubusercontent.com/AlManja/logs.py/master/mlogs01.png)
+#![alt tag](https://raw.githubusercontent.com/AlManja/logs.py/master/mlogs02.png)

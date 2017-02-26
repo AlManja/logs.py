@@ -4,7 +4,8 @@
 
 Idea is, to collect different kind of error msgs from different (txt) log files on Manjaro (it should probably work also on other Arch based systems) and display them all at the same time for easier troubleshooting. This should be something behinner friendly :-)
 
-Script runs: journalctl -b > journalctl.txt (current systemd boot errors) and place it into your /tmp/ folder before it uses.
+On Systemd based systems, script runs: journalctl -b > journalctl.txt (current systemd boot errors) and place it into your /tmp/ folder before it uses.
+On OpenRC based systems, it will search for 'WARNINGS' if you have logging enabled in rc.conf
 
 Select files/logs you want to search. 
 If you select Inxi, make sure you have it installed :-)
@@ -14,8 +15,6 @@ For better control over the size of the output, journalctl is split into 4 searc
     /var/log/Xorg.0.log <= failed, error, (WW)
     /var/log/pacman.log <= pacsave, pacnew, pacorig, warning    (Arch specific file)
     /tmp/journalctl.txt <= emergency, alert, critical, failed
-
-On OpenRC system, it will search for 'WARNINGS' if you have logging enabled in rc.conf
 
 Big thanks to:
 

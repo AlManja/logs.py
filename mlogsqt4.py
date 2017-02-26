@@ -144,15 +144,12 @@ class Window(QtGui.QWidget):
     def to_editor(self):
         os.system("xdg-open "+TMP_FILE)
 
-    def to_web(self):
-        pass
-
 # creates the application and takes arguments from the command line
 application = QtGui.QApplication(sys.argv)
 
 # creates the window and sets its properties
 window = Window()
-window.setWindowTitle('QCheckBox')  # title
+window.setWindowTitle('Manjaro Logs')  # title
 window.resize(280, 50)  # size
 window.show()  # shows the window
 

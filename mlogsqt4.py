@@ -133,7 +133,7 @@ class Window(QtGui.QWidget):
             # print("Saving: rc.log to file")
             f.write(HEADER.format("rc.log", "OpenRc only! searching for: WARNING: keywords"))
             try:
-                f.write(look_in_file('/var/log/rc.log', ['failed', 'error', 'WARNING:']))
+                f.write(look_in_file('/var/log/rc.log', ['WARNING:']))
             except FileNotFoundError:
                 print("/var/log/rc.log not found!     Systemd based OS?")
                 f.write("rc.log not found!   Systemd based OS?")

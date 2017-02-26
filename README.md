@@ -1,4 +1,4 @@
-# mlogs.py (Manjaro Logs)
+# mlogsqt4.py (Manjaro Logs)
 
     mlogsqt4.py runs on Python 3.6, needs: python-pyqt4, python-sh & xdg-utils
 

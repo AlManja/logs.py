@@ -24,13 +24,15 @@ For better control over output, journalctl is split into 4 searches each for eac
     /var/log/pacman.log <= pacsave, pacnew, pacorig, warning    (Arch specific file)
     /tmp/journalctl.txt <= emergency, alert, critical, failed
 
-On Linux Mint it parse these two files:
+On OpenRC system, it will search for 'WARNINGS' if you have logging enabled in rc.conf
 
-    /var/log/Xorg.0.log <= failed, error, (WW)
-    /tmp/journalctl.txt <= emergency, alert, critical, failed
+Big thanks to:
 
-First button saves info file and show it into text editor. 
-Second button is not active yet
+https://github.com/xircon
+https://github.com/novel-yet-trivial
+https://www.reddit.com/user/K900_
+
+For all the help on Reddit, Manjaro forum and here!
 
 Picture is a little bit outdated :-)
 

@@ -1,6 +1,6 @@
 # mlogsqt4.py (Manjaro Logs)
 
-    mlogsqt4.py runs on Python 3.6, needs: python-pyqt4, python-sh & xdg-utils
+    logsgui.py runs on Python 3.6, needs: python-pyqt4, python-sh & xdg-utils
 
 Idea is, to collect different kind of error msgs from different (txt) log files on Manjaro (it should probably work also on other Arch based systems) and display them all at the same time for easier troubleshooting. This should be something behinner friendly :-)
 

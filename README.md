@@ -1,4 +1,4 @@
-# mlogsqt4.py (Manjaro Logs)
+# logsgui.py (Manjaro Logs)
 
     logsgui.py runs on Python 3.6, needs: python-pyqt4, python-sh & xdg-utils
 

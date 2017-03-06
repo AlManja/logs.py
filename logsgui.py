@@ -6,7 +6,7 @@ from functools import partial
 from PyQt4 import QtGui              # provides the graphic elements
 from PyQt4.QtCore import Qt          # provides Qt identifiers
 from PyQt4.QtGui import QPushButton
-from sh import inxi                  # The sh library is awesome for linux users
+from sh import inxi, mhwd            # The sh library is awesome for linux users
 
 TMP_FILE = "/tmp/mlogsout.txt"
 
@@ -18,6 +18,8 @@ HEADER = '''
 
 checkbuttons = [
     '&Inxi - (inxi -Fxzc0)',
+    'I&nstalled g. driver - (mhwd -li)',
+    '&List all g. drivers - (mhwd -li)',
     '&Xorg.0 - (/var/log/Xorg.0.log)',
     'X&org.1 - (/var/log/Xorg.1.log)',
     '&pacman.log - (/var/log/pacman.log)',
@@ -25,7 +27,7 @@ checkbuttons = [
     'journalctl.txt - (&Alert)',
     'journalctl.txt - (&Critical)',
     'journalctl.txt - (&Failed)',
-    'OpenRc - &rc.log - (/var/log/rc.log)',
+    'Open&Rc - rc.log - (/var/log/rc.log)',
 ]
 
 
@@ -72,6 +74,24 @@ class Window(QtGui.QWidget):
             f.write('\n')
 
         if self.checks[1]:
+            # print("Getting info about installed graphical driver")
+            f.write(HEADER.format("Installed driver", "Shows which graphic driver is installed"))
+            try:
+                f.write(str(mhwd('-li')))
+            except:
+                print(" 'mhwd' not found, this is not Manjaro?")
+            f.write('\n')
+
+        if self.checks[2]:
+            # print("Getting list of all drivers supported on detected gpu's")
+            f.write(HEADER.format("Available drivers", "list of all drivers supported on detected gpu's"))
+            try:
+                f.write(str(mhwd('-l')))
+            except:
+                print(" 'mhwd' not found, this is not Manjaro?")
+            # f.write('\n')
+
+        if self.checks[3]:
             # print("Saving: Xorg.0.log to file")
             f.write(HEADER.format("Xorg.0.log", "searching for: failed, error & (WW) keywords"))
             try:
@@ -81,7 +101,7 @@ class Window(QtGui.QWidget):
                 f.write("Xorg.0.log not found!")
             f.write('\n')
 
-        if self.checks[2]:
+        if self.checks[4]:
             # print("Saving: Xorg.1.log to file")
             f.write(HEADER.format("Xorg.1.log", "searching for: failed, error & (WW) keywords"))
             try:
@@ -91,7 +111,7 @@ class Window(QtGui.QWidget):
                 f.write("Xorg.1.log not found!")
             f.write('\n')
 
-        if self.checks[3]:
+        if self.checks[5]:
             # print("Saving: pacman.log to file")
             f.write(HEADER.format("pacman.log", "searching for: pacsave, pacnew, pacorig keywords"))
             try:
@@ -101,35 +121,35 @@ class Window(QtGui.QWidget):
                 f.write("pacman.log not found!  Not Arch based OS?")
             f.write('\n')
 
-        if self.checks[4]:
+        if self.checks[6]:
             # print("Saving: journalctl (mergency) to file")
             os.system("journalctl -b > /tmp/journalctl.txt")
             f.write(HEADER.format("journalctl.txt", "Searching for: Emergency keywords"))
             f.write(look_in_file('/tmp/journalctl.txt', ['emergency', 'Emergency', 'EMERGENCY']))
             f.write('\n')
 
-        if self.checks[5]:
+        if self.checks[7]:
             # print("Saving: journalctl (alert) to file")
             os.system("journalctl -b > /tmp/journalctl.txt")
             f.write(HEADER.format("journalctl.txt", "Searching for: Alert keywords"))
             f.write(look_in_file('/tmp/journalctl.txt', ['alert', 'Alert', 'ALERT']))
             f.write('\n')
 
-        if self.checks[6]:
+        if self.checks[8]:
             # print("Saving: journalctl (critical) to file")
             os.system("journalctl -b > /tmp/journalctl.txt")
             f.write(HEADER.format("journalctl.txt", "Searching for: Critical keywords"))
             f.write(look_in_file('/tmp/journalctl.txt', ['critical', 'Critical', 'CRITICAL']))
             f.write('\n')
 
-        if self.checks[7]:
+        if self.checks[9]:
             # print("Saving: journalctl (failed) to file")
             os.system("journalctl -b > /tmp/journalctl.txt")
             f.write(HEADER.format("journalctl.txt", "Searching for: Failed keywords"))
             f.write(look_in_file('/tmp/journalctl.txt', ['failed', 'Failed', 'FAILED']))
             f.write('\n')
 
-        if self.checks[8]:
+        if self.checks[10]:
             # print("Saving: rc.log to file")
             f.write(HEADER.format("rc.log", "OpenRc only! searching for: WARNING: keywords"))
             try:

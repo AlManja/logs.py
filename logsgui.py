@@ -6,8 +6,11 @@ from functools import partial
 from PyQt4 import QtGui              # provides the graphic elements
 from PyQt4.QtCore import Qt          # provides Qt identifiers
 from PyQt4.QtGui import QPushButton
-from sh import inxi, mhwd            # The sh library is awesome for linux users
-
+from sh import inxi
+try:
+    from sh import mhwd
+except:
+    print(" 'mhwd' not found, this is not Manjaro?")
 TMP_FILE = "/tmp/mlogsout.txt"
 
 HEADER = '''
@@ -18,8 +21,8 @@ HEADER = '''
 
 checkbuttons = [
     '&Inxi - (inxi -Fxzc0)',
-    'I&nstalled g. drivers - (mhwd -li)',
-    '&List all g. drivers - (mhwd -l)',
+    'I&nstalled g. drivers - (Manjaro only - mhwd -li)',
+    '&List all g. drivers - (Manjaro only - mhwd -l)',
     '&Xorg.0 - (/var/log/Xorg.0.log)',
     'X&org.1 - (/var/log/Xorg.1.log)',
     '&pacman.log - (/var/log/pacman.log)',

@@ -11,14 +11,14 @@ from sh import inxi, mhwd            # The sh library is awesome for linux users
 TMP_FILE = "/tmp/mlogsout.txt"
 
 HEADER = '''
-==================
-|{:^16}|   {}
-==================
+===================
+|{:^17}|   {}
+===================
 '''
 
 checkbuttons = [
     '&Inxi - (inxi -Fxzc0)',
-    'I&nstalled g. driver - (mhwd -li)',
+    'I&nstalled g. drivers - (mhwd -li)',
     '&List all g. drivers - (mhwd -l)',
     '&Xorg.0 - (/var/log/Xorg.0.log)',
     'X&org.1 - (/var/log/Xorg.1.log)',

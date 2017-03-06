@@ -19,7 +19,7 @@ HEADER = '''
 checkbuttons = [
     '&Inxi - (inxi -Fxzc0)',
     'I&nstalled g. driver - (mhwd -li)',
-    '&List all g. drivers - (mhwd -li)',
+    '&List all g. drivers - (mhwd -l)',
     '&Xorg.0 - (/var/log/Xorg.0.log)',
     'X&org.1 - (/var/log/Xorg.1.log)',
     '&pacman.log - (/var/log/pacman.log)',
@@ -75,7 +75,7 @@ class Window(QtGui.QWidget):
 
         if self.checks[1]:
             # print("Getting info about installed graphical driver")
-            f.write(HEADER.format("Installed driver", "Shows which graphic driver is installed"))
+            f.write(HEADER.format("Installed drivers", "Shows which graphic driver is installed"))
             try:
                 f.write(str(mhwd('-li')))
             except:

@@ -6,12 +6,16 @@ from functools import partial
 from PyQt4 import QtGui              # provides the graphic elements
 from PyQt4.QtCore import Qt          # provides Qt identifiers
 from PyQt4.QtGui import QPushButton
-from sh import inxi
+try:
+    from sh import inxi
+except:
+    print(" 'inxi' not found, install it to get this info")
 try:
     from sh import mhwd
 except:
     print(" 'mhwd' not found, this is not Manjaro?")
-    
+
+
 TMP_FILE = "/tmp/mlogsout.txt"
 
 HEADER = '''
@@ -74,7 +78,10 @@ class Window(QtGui.QWidget):
             # write output of 'Inxi -Fxzc0' into /tmp/mlogsout.txt
             # print("Saving: inxi to file")
             f.write(HEADER.format("Inxi -Fxzc0", "Listing computer information"))
-            f.write(str(inxi('-Fxzc0')))
+            try:
+                f.write(str(inxi('-Fxzc0')))
+            except:
+                " 'inxi' not found, install it to get this info"
             f.write('\n')
 
         if self.checks[1]:

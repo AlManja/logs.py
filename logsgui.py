@@ -11,6 +11,7 @@ try:
     from sh import mhwd
 except:
     print(" 'mhwd' not found, this is not Manjaro?")
+    
 TMP_FILE = "/tmp/mlogsout.txt"
 
 HEADER = '''

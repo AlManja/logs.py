@@ -4,7 +4,7 @@
 
 Idea is, to collect different kind of computer info and error msgs from different log files on Arch based Manjaro Linux and display them all at the same time for easier troubleshooting. It is meant to help with troubleshoting in a simple and beginner friendly way :-).
 
-Script also works on Arch linux, but since it also uses "mhwd" - Manjaro hardware detection tool, which is not awailable in Arch repositories, this part will of course not return any info. 
+Script also works on Arch linux, but since it also uses "mhwd" (Manjaro hardware detection tool), which is not available in Arch repositories, this part will of course not return any info. 
 
 On Systemd based systems, script runs: journalctl -b > journalctl.txt (current systemd boot errors) and place it into your /tmp/ folder before it uses.
 On OpenRC based systems, it will search for 'WARNINGS' if you have logging enabled in rc.conf

@@ -27,7 +27,7 @@ https://www.reddit.com/user/K900_
 
 For all the help on Reddit, Manjaro forum and here!
 
-And to @Photon for packaking and adding it to AUR:
+And to @Photon for packaging and adding it to AUR:
 
 https://forum.manjaro.org/users/photon/activity
 

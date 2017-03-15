@@ -39,6 +39,17 @@ def mhwd_l():
         print('Do you have installed: "mhwd" on your system? ')
 
 
+def lsblk():
+    print('=============')
+    print("|   lsblk   |   List drives and partitions")
+    print('=============')
+#    try:
+    os.system('lsblk')
+    print()
+    # except:
+    #     print('Do you have installed: "mhwd" on your system? ')
+
+
 def read_xorg0():
     """from Xorg.0.log print lines that contain words: failed, error, (WW)"""
     try:
@@ -131,6 +142,7 @@ def rc_status():
 inxi()
 mhwd_li()
 mhwd_l()
+lsblk()
 read_xorg0()
 read_xorg1()
 read_pacman()

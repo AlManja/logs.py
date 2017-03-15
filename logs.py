@@ -49,6 +49,17 @@ def lsblk():
     # except:
     #     print('Do you have installed: "mhwd" on your system? ')
 
+def check_bios():
+    print('=============')
+    print("| parted -l |   Checking if system is miss configured")
+    print('=============')
+    print(' Output need to mach one of these two pairs: BIOS-msdos or UEFI-gpt')
+    print(" ----------------------- ")
+    os.system('test -d /sys/firmware/efi && echo UEFI || echo BIOS')
+    os.system('parted -l | grep "Partition Table"')
+    print(" ----------------------- ")
+
+
 
 def read_xorg0():
     """from Xorg.0.log print lines that contain words: failed, error, (WW)"""
@@ -139,10 +150,17 @@ def rc_status():
     except:
         print('Is this OpenRC init based system?')
 
+
+# -------------------
+# test -d /sys/firmware/efi && echo UEFI || echo BIOS  <= run first
+# parted -l | grep "Partition Table"                   <= run second
+# -------------------
+
 inxi()
 mhwd_li()
 mhwd_l()
 lsblk()
+check_bios()
 read_xorg0()
 read_xorg1()
 read_pacman()

@@ -38,26 +38,35 @@ def mhwd_l():
     except:
         print('Do you have installed: "mhwd" on your system? ')
 
+def hwinfo_gfxcard():
+    print('====================')
+    print("| hwinfo --gfxcard |   Detailed info about your graphic card.")
+    print('====================')
+    try:
+        os.system('hwinfo --gfxcard')
+        print()
+    except:
+        print('Do you have installed: "mhwd" on your system? ')
+
+
 
 def lsblk():
     print('=============')
     print("|   lsblk   |   List drives and partitions")
     print('=============')
-#    try:
     os.system('lsblk')
     print()
-    # except:
-    #     print('Do you have installed: "mhwd" on your system? ')
 
 def check_bios():
     print('=============')
     print("| parted -l |   Checking if system is miss configured")
     print('=============')
     print(' Output need to mach one of these two pairs: BIOS-msdos or UEFI-gpt')
-    print(" ----------------------- ")
+    print(" -------------------- ")
     os.system('test -d /sys/firmware/efi && echo UEFI || echo BIOS')
     os.system('parted -l | grep "Partition Table"')
-    print(" ----------------------- ")
+    print(" -------------------- ")
+    print()
 
 
 
@@ -159,6 +168,7 @@ def rc_status():
 inxi()
 mhwd_li()
 mhwd_l()
+hwinfo_gfxcard()
 lsblk()
 check_bios()
 read_xorg0()

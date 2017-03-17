@@ -172,12 +172,6 @@ def rc_status():
     except:
         print('Is this OpenRC init based system?')
 
-
-# -------------------
-# test -d /sys/firmware/efi && echo UEFI || echo BIOS  <= run first
-# parted -l | grep "Partition Table"                   <= run second
-# -------------------
-
 inxi()
 mhwd_li()
 mhwd_l()

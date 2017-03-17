@@ -7,6 +7,7 @@ This script prints out some computer info and errors from log files (Xorg.0.log,
 pacman.log, journalctl.txt and rc.log. It is intended for Linux OS (Arch based: Manjaro)
 """
 
+
 def inxi():
     print()
     print('===============')
@@ -18,6 +19,7 @@ def inxi():
     except:
         print('Do you have installed: "inxi" on your system? ')
 
+
 def mhwd_li():
     print('===============')
     print('|   mhwd -li  |   Shows which graphic driver is installed')
@@ -28,15 +30,28 @@ def mhwd_li():
     except:
         print('Do you have installed: "mhwd" on your system? ')
 
+
 def mhwd_l():
     print('===============')
     print("|   mhwd -l  |   List of all drivers supported on detected gpu's")
     print('===============')
     try:
         os.system('mhwd -l')
-        print()
     except:
         print('Do you have installed: "mhwd" on your system? ')
+
+
+def direct_rendering():
+    print()
+    print('====================')
+    print('| Direct Rendering |   Yes/No')
+    print('====================')
+    try:
+        os.system('glxinfo | grep "direct rendering"')
+        print()
+    except:
+        print(' No "glxinfo" on your system? ')
+
 
 def hwinfo_gfxcard():
     print('====================')
@@ -45,9 +60,9 @@ def hwinfo_gfxcard():
     try:
         os.system('hwinfo --gfxcard')
         print()
+        print()
     except:
         print('Do you have installed: "mhwd" on your system? ')
-
 
 
 def lsblk():
@@ -57,17 +72,17 @@ def lsblk():
     os.system('lsblk')
     print()
 
+
 def check_bios():
     print('=============')
-    print("| parted -l |   Checking if system is miss configured")
+    print("| parted -l |   Need password!   Checking if system is miss configured")
     print('=============')
-    print(' Output need to mach one of these two pairs: BIOS-msdos or UEFI-gpt')
+    print(' Output need to match one of these two pairs: BIOS-msdos or UEFI-gpt')
     print(" -------------------- ")
     os.system('test -d /sys/firmware/efi && echo UEFI || echo BIOS')
-    os.system('parted -l | grep "Partition Table"')
+    os.system('sudo parted -l | grep "Partition Table"')
     print(" -------------------- ")
     print()
-
 
 
 def read_xorg0():
@@ -130,12 +145,10 @@ def read_journalctl():
                         print(line, end='')
     except:
         print('Missing file: journalctl.txt;  Not systed based system?')
-
     print()
 
 
 def read_rc_log():
-
     print('==============')
     print('|   rc.log   |   (OpenRC only!) - Listing entries with WARNING: keywords')
     print('==============')
@@ -168,12 +181,13 @@ def rc_status():
 inxi()
 mhwd_li()
 mhwd_l()
+direct_rendering()
 hwinfo_gfxcard()
-lsblk()
-check_bios()
 read_xorg0()
 read_xorg1()
-read_pacman()
+lsblk()
+check_bios()
 read_journalctl()
+read_pacman()
 rc_status()
 read_rc_log()

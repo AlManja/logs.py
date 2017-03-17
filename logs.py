@@ -10,11 +10,11 @@ pacman.log, journalctl.txt and rc.log. It is intended for Linux OS (Arch based: 
 
 def inxi():
     print()
-    print('===============')
-    print('|  Inxi -Fxz  |   Listing computer information')
-    print('===============')
+    print('==================')
+    print('| inxi -Fxmnxopz |   Need password! Listing computer information')
+    print('==================')
     try:
-        os.system('inxi -Fxz')
+        os.system('sudo inxi -Fxmnxopz')
         print()
     except:
         print('Do you have installed: "inxi" on your system? ')

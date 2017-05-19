@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+# todo: added memory & swap info
+
 import os
 
 """
@@ -10,11 +12,11 @@ pacman.log, journalctl.txt and rc.log. It is intended for Linux OS (Arch based: 
 
 def inxi():
     print()
-    print('==================')
-    print('| inxi -Fxmnxopz |   Need password! Listing computer information')
-    print('==================')
+    print('===============')
+    print('| Inxi -Fxxxz |   Computer information')
+    print('===============')
     try:
-        os.system('sudo inxi -Fxmnxopz')
+        os.system('inxi -Fxxxz')
         print()
     except:
         print('Do you have installed: "inxi" on your system? ')
@@ -22,7 +24,7 @@ def inxi():
 
 def mhwd_li():
     print('===============')
-    print('|   mhwd -li  |   Shows which graphic driver is installed')
+    print('|   mhwd -li  |   Shows which graphic drivers are installed')
     print('===============')
     try:
         os.system('mhwd -li')
@@ -32,30 +34,18 @@ def mhwd_li():
 
 
 def mhwd_l():
-    print('===============')
+    print('==============')
     print("|   mhwd -l  |   List of all drivers supported on detected gpu's")
-    print('===============')
+    print('==============')
     try:
         os.system('mhwd -l')
     except:
         print('Do you have installed: "mhwd" on your system? ')
 
 
-def direct_rendering():
-    print()
-    print('====================')
-    print('| Direct Rendering |   Yes/No')
-    print('====================')
-    try:
-        os.system('glxinfo | grep "direct rendering"')
-        print()
-    except:
-        print(' No "glxinfo" on your system? ')
-
-
 def hwinfo_gfxcard():
     print('====================')
-    print("| hwinfo --gfxcard |   Detailed info about your graphic card.")
+    print("| hwinfo --gfxcard |   Info about your graphic card.")
     print('====================')
     try:
         os.system('hwinfo --gfxcard')
@@ -63,6 +53,14 @@ def hwinfo_gfxcard():
         print()
     except:
         print('Do you have installed: "mhwd" on your system? ')
+
+
+def mem():
+    print('=============')
+    print("|  free -h  |   Shows memory and swap info")
+    print('=============')
+    os.system('free -h')
+    print()
 
 
 def lsblk():
@@ -73,14 +71,33 @@ def lsblk():
     print()
 
 
+def df():
+    print('==========')
+    print("|   df   |   How much free disk space is left for each partition?")
+    print('==========')
+    os.system('df')
+    print()
+
+
+def blockdev():
+    print('==++========')
+    print("| blockdev |   Checks your first (sda) disk, if 0, alignment is OK")
+    print('=========++=')
+    os.system('blockdev --getalignoff /dev/sda')
+    print()
+
+
 def check_bios():
+    ''' 
+    entter explanation here :-)
+    '''
     print('=============')
-    print("| parted -l |   Need password!   Checking if system is miss configured")
+    print("| parted -l |   Installation mach partition table type?")
     print('=============')
-    print(' Output need to match one of these two pairs: BIOS-msdos or UEFI-gpt')
+    print(' Output need to match one of these two pairs: BIOS+msdos or UEFI+gpt')
     print(" -------------------- ")
     os.system('test -d /sys/firmware/efi && echo UEFI || echo BIOS')
-    os.system('sudo parted -l | grep "Partition Table"')
+    os.system('parted -l | grep "Partition Table: "')
     print(" -------------------- ")
     print()
 
@@ -90,7 +107,7 @@ def read_xorg0():
     try:
         with open('/var/log/Xorg.0.log', 'r') as f:
             print('==============')
-            print('| Xorg.0.log |  "Xorg.0.log", Listing entries with failed, error & (WW) keywords')
+            print('| Xorg.0.log |  "Xorg.0.log", Lists entries with failed, error & (WW) keywords')
             print('==============')
             for line in f:
                 if 'failed' in line or 'error' in line or '(WW)' in line:
@@ -105,7 +122,7 @@ def read_xorg1():
     try:
         with open('/var/log/Xorg.1.log', 'r') as f:
             print('==============')
-            print('| Xorg.1.log |  "Xorg.1.log", Listing entries with failed, error & (WW) keywords')
+            print('| Xorg.1.log |  "Xorg.1.log", Lists entries with failed, error & (WW) keywords')
             print('==============')
             for line in f:
                 if 'failed' in line or 'error' in line or '(WW)' in line:
@@ -120,7 +137,7 @@ def read_pacman():
     try:
         with open('/var/log/pacman.log', 'r') as f:
             print('==============')
-            print('| pacman.log |   Listing entries with pacsave, pacnew, pacorig keywords')
+            print('| pacman.log |   Lists entries with pacsave, pacnew, pacorig keywords')
             print('==============')
             for line in f:
                 if 'pacsave' in line or 'pacnew' in line or 'pacorig' in line or 'warning' in line:
@@ -132,10 +149,11 @@ def read_pacman():
 
 def read_journalctl():
     print('==============')
-    print('| journalctl |   (systed only!) - Listing entries with Emergency, Alert & Critical keywords')
+    print('| journalctl |   Lists entries with Emergency, Alert & Critical keywords - (systemd only)')
     print('==============')
-    key_word = ['emergency', 'Emergency', 'EMERGENCY', 'alert', 'Alert', 'ALERT', 'critical', 'Critical',
-                'CRITICAL']
+    key_word = ['emergency', 'Emergency', 'EMERGENCY', 'alert', 'Alert', 'ALERT', 'critical', 'Critical', 'CRITICAL']
+    # key_word = ['error', 'Error', 'ERROR', 'emergency', 'Emergency', 'EMERGENCY', 'alert', 'Alert', 'ALERT',
+    #             'critical', 'Critical', 'CRITICAL']
     os.system("journalctl -b > /tmp/journalctl.txt")
     try:
         with open('/tmp/journalctl.txt', 'r') as f:
@@ -144,13 +162,13 @@ def read_journalctl():
                     if word in line:
                         print(line, end='')
     except:
-        print('Missing file: journalctl.txt;  Not systed based system?')
+        print('Missing file: journalctl.txt;  Not systemd based system?')
     print()
 
 
 def read_rc_log():
     print('==============')
-    print('|   rc.log   |   (OpenRC only!) - Listing entries with WARNING: keywords')
+    print('|   rc.log   |   Lists entries with WARNING: keywords - (OpenRC only, logging need to be enabled)')
     print('==============')
     try:
         with open('/var/log/rc.log', 'r') as f:
@@ -159,12 +177,12 @@ def read_rc_log():
                     print(line, end='')
         print()
     except:
-        print('Missing file: rc.log   If this is OpenRC, did you enable logging?')
+        print('Missing file: rc.log   If this is OpenRC with logging enabled?')
 
 
 def rc_status():
     print('===============')
-    print('|  rc_status  |   (OpenRC only!) - Lists all services "rc-status --all" ')
+    print('|  rc_status  |   Lists all services "rc-status --all" - (OpenRC only, logging need to be enabled)')
     print('===============')
     try:
         os.system('rc-status --all')
@@ -175,11 +193,13 @@ def rc_status():
 inxi()
 mhwd_li()
 mhwd_l()
-direct_rendering()
 hwinfo_gfxcard()
 read_xorg0()
 read_xorg1()
+mem()
 lsblk()
+df()
+blockdev()
 check_bios()
 read_journalctl()
 read_pacman()

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# todo: added memory & swap info
+# todo: rearanged output, uploaded May 23, 2017
 
 import os
 
@@ -11,6 +11,7 @@ pacman.log, journalctl.txt and rc.log. It is intended for Linux OS (Arch based: 
 
 
 def inxi():
+    """ Return some basic information about computer hardware, OS, software... """
     print()
     print('===============')
     print('| Inxi -Fxxxz |   Computer information')
@@ -23,6 +24,7 @@ def inxi():
 
 
 def mhwd_li():
+    """ Installed graphic drivers """
     print('===============')
     print('|   mhwd -li  |   Shows which graphic drivers are installed')
     print('===============')
@@ -34,6 +36,7 @@ def mhwd_li():
 
 
 def mhwd_l():
+    """ Drivers supported on detected gpu's """
     print('==============')
     print("|   mhwd -l  |   List of all drivers supported on detected gpu's")
     print('==============')
@@ -44,6 +47,7 @@ def mhwd_l():
 
 
 def hwinfo_gfxcard():
+    """ Info about installed graphic card """
     print('====================')
     print("| hwinfo --gfxcard |   Info about your graphic card.")
     print('====================')
@@ -56,6 +60,7 @@ def hwinfo_gfxcard():
 
 
 def mem():
+    """ Info about memory and swap partition """
     print('=============')
     print("|  free -h  |   Shows memory and swap info")
     print('=============')
@@ -64,6 +69,7 @@ def mem():
 
 
 def lsblk():
+    """ Info about drives and partitions """
     print('=============')
     print("|   lsblk   |   List drives and partitions")
     print('=============')
@@ -72,6 +78,7 @@ def lsblk():
 
 
 def df():
+    """ Info about remaining free space on partitions """
     print('==========')
     print("|   df   |   How much free disk space is left for each partition?")
     print('==========')
@@ -80,6 +87,7 @@ def df():
 
 
 def blockdev():
+    """ returns 0 is partitions on first HDD are properly aligned """
     print('==++========')
     print("| blockdev |   Checks your first (sda) disk, if 0, alignment is OK")
     print('=========++=')
@@ -88,11 +96,9 @@ def blockdev():
 
 
 def check_bios():
-    ''' 
-    entter explanation here :-)
-    '''
+    """ Checks if installatuon type matches partition table type """
     print('=============')
-    print("| parted -l |   Installation mach partition table type?")
+    print("| parted -l |   Installation match partition table type?")
     print('=============')
     print(' Output need to match one of these two pairs: BIOS+msdos or UEFI+gpt')
     print(" -------------------- ")
@@ -103,7 +109,7 @@ def check_bios():
 
 
 def read_xorg0():
-    """from Xorg.0.log print lines that contain words: failed, error, (WW)"""
+    """ from Xorg.0.log print lines that contain words: failed, error, (WW) """
     try:
         with open('/var/log/Xorg.0.log', 'r') as f:
             print('==============')
@@ -118,7 +124,7 @@ def read_xorg0():
 
 
 def read_xorg1():
-    """from Xorg.1.log print lines that contain words: failed, error, (WW)"""
+    """ from Xorg.1.log print lines that contain words: failed, error, (WW) """
     try:
         with open('/var/log/Xorg.1.log', 'r') as f:
             print('==============')
@@ -133,7 +139,7 @@ def read_xorg1():
 
 
 def read_pacman():
-    """from pacman.log print lines that contain words: pacsave, pacnew, pacorig, warning"""
+    """ from pacman.log print lines that contain words: pacsave, pacnew, pacorig, warning """
     try:
         with open('/var/log/pacman.log', 'r') as f:
             print('==============')
@@ -148,6 +154,7 @@ def read_pacman():
 
 
 def read_journalctl():
+    """ Lists lines that contain keywords: emergency, alert and critical """
     print('==============')
     print('| journalctl |   Lists entries with Emergency, Alert & Critical keywords - (systemd only)')
     print('==============')
@@ -167,6 +174,7 @@ def read_journalctl():
 
 
 def read_rc_log():
+    """ Lists entries with keywords: WARNING: on OpenRC log file """
     print('==============')
     print('|   rc.log   |   Lists entries with WARNING: keywords - (OpenRC only, logging need to be enabled)')
     print('==============')
@@ -181,6 +189,7 @@ def read_rc_log():
 
 
 def rc_status():
+    """ Lists status of all services on OpenRC """
     print('===============')
     print('|  rc_status  |   Lists all services "rc-status --all" - (OpenRC only, logging need to be enabled)')
     print('===============')
@@ -194,13 +203,13 @@ inxi()
 mhwd_li()
 mhwd_l()
 hwinfo_gfxcard()
-read_xorg0()
-read_xorg1()
 mem()
 lsblk()
 df()
 blockdev()
 check_bios()
+read_xorg0()
+read_xorg1()
 read_journalctl()
 read_pacman()
 rc_status()

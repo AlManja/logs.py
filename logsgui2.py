@@ -6,40 +6,44 @@ from functools import partial
 from PyQt4 import QtGui              # provides the graphic elements
 from PyQt4.QtCore import Qt          # provides Qt identifiers
 from PyQt4.QtGui import QPushButton
-from sh import inxi
-from sh import mhwd
-from sh import hwinfo
-from sh import free
-from sh import lsblk
-from sh import df
-from sh import blockdev
-from sh import test
-from sh import parted
 
+try:
+    from sh import inxi
+except:
+    print(" 'inxi' not found, install it to get this info")
+try:
+    from sh import mhwd
+except:
+    print(" 'mhwd' not found, this is not Manjaro?")
+try:
+    from sh import hwinfo
+except:
+    print(" 'hwinfo' not found")
+try:
+    from sh import free
+except:
+    print(" 'free' not found")
+try:
+    from sh import lsblk
+except:
+    print(" 'lsblk' not found")
+try:
+    from sh import df
+except:
+    print(" 'df' not found")
+try:
+    from sh import blockdev
+except:
+    print(" 'blockdev' not found")
+try:
+    from sh import test
+except:
+    print(" 'test' not found")
+try:
+    from sh import parted
+except:
+    print(" 'parted' not found")
 
-
-
-
-
-
-#
-# try:
-#     from sh import inxi
-# except:
-#     print(" 'inxi' not found, install it to get this info")
-# try:
-#     from sh import mhwd
-# except:
-#     print(" 'mhwd' not found, this is not Manjaro?")
-# try:
-#     from sh import hwinfo
-# except:
-#     print(" 'hwinfo' not found")
-# try:
-#     from sh import free
-# except:
-#     print(" 'free' not found")
-#
 
 TMP_FILE = "/tmp/mlogsout.txt"
 
@@ -67,7 +71,7 @@ checkbuttons = [
     'journalctl - Critical',
     'journalctl - Failed',
     'Open&Rc - rc.log',
-    # 'OpenRc - Services status)',
+    'OpenRc - Services status)',
 ]
 
 
@@ -272,16 +276,16 @@ class Window(QtGui.QWidget):
                 f.write("rc.log not found!   Systemd based OS?")
             f.write('\n')
 
-        # if self.checks[17]:
-        #     print('openrc services status')
-        #     # os.system('rc-status --all')
-        #     f.write(HEADER.format("Services", "OpenRc only!"))
-        #     try:
-        #         f.write(str(rc-status(' --all')))
-        #     except:
-        #         print("rc-status all error")
-        #         f.write("rc.log not found!   Systemd based OS?")
-        #     f.write('\n')
+        if self.checks[17]:
+            print('openrc services status')
+            # os.system('rc-status --all')
+            f.write(HEADER.format("Services", "OpenRc only!"))
+            try:
+                f.write(str(rc-status(' --all')))
+            except:
+                print("rc-status all error")
+                f.write("rc.log not found!   Systemd based OS?")
+            f.write('\n')
 
         f.close()
 

@@ -6,12 +6,42 @@ from functools import partial
 from PyQt4 import QtGui              # provides the graphic elements
 from PyQt4.QtCore import Qt          # provides Qt identifiers
 from PyQt4.QtGui import QPushButton
-from sh import inxi
-from sh import mhwd
-from sh import hwinfo
-from sh import free
-from sh import lsblk
-from sh import df
+try:
+    from sh import inxi
+except:
+    print(" 'inxi' not found, install it to get this info")
+try:
+    from sh import mhwd
+except:
+    print(" 'mhwd' not found, this is not Manjaro?")
+try:
+    from sh import hwinfo
+except:
+    print(" 'hwinfo' not found")
+try:
+    from sh import free
+except:
+    print(" 'free' not found")
+try:
+    from sh import lsblk
+except:
+    print(" 'lsblk' not found")
+try:
+    from sh import df
+except:
+    print(" 'df' not found")
+try:
+    from sh import blockdev
+except:
+    print(" 'blockdev' not found")
+try:
+    from sh import test
+except:
+    print(" 'test' not found")
+try:
+    from sh import parted
+except:
+    print(" 'parted' not found")
 
 TMP_FILE = "/tmp/mlogsout.txt"
 
@@ -29,8 +59,6 @@ checkbuttons = [
     'Memory Info',
     'Partitions',
     'Free Disk Space',
-    'Proper Disk Alignment',
-    'BIOS / UEFI',
     'Xorg.0',
     'Xorg.1',
     'pacman.log',

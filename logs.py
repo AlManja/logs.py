@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 
-# todo: rearanged output, uploaded May 23, 2017
+'''added dmesg_error & dmesg_fail, sept 26, 2017'''
 
 import os
 
 """
 This script prints out some computer info and errors from log files (Xorg.0.log, Xorg.1.log,
-pacman.log, journalctl.txt and rc.log. It is intended for Linux OS (Arch based: Manjaro)
+pacman.log and journalctl.txt. It is intended for Linux OS (Arch based: Manjaro)
 """
 
 
@@ -21,6 +21,28 @@ def inxi():
         print()
     except:
         print('Do you have installed: "inxi" on your system? ')
+
+
+def dmesg_error():
+    print('======================')
+    print('| dmesg | grep error |   Shows kernel errors')
+    print('======================')
+    try:
+        os.system('dmesg | grep error')
+        print()
+    except:
+        print('Nea working...')
+
+
+def dmesg_fail():
+    print('======================')
+    print('| dmesg | grep error |   Shows kernel fails')
+    print('======================')
+    try:
+        os.system('dmesg | grep fail')
+        print()
+    except:
+        print('Nea working...')
 
 
 def mhwd_li():
@@ -88,9 +110,9 @@ def df():
 
 def blockdev():
     """ returns 0 is partitions on first HDD are properly aligned """
-    print('==++========')
+    print('============')
     print("| blockdev |   Checks your first (sda) disk, if 0, alignment is OK")
-    print('=========++=')
+    print('============')
     os.system('blockdev --getalignoff /dev/sda')
     print()
 
@@ -138,6 +160,18 @@ def read_xorg1():
         print('Missing file: Xorg.1.log')
 
 
+def orphaned():
+    """ Installed graphic drivers """
+    print('===============')
+    print('|  pacman -Qdtq  |   Lists orphaned packages')
+    print('===============')
+    try:
+        os.system('pacman -Qdtq')
+        print()
+    except:
+        print('Not Arch based ditribution?')
+
+
 def read_pacman():
     """ from pacman.log print lines that contain words: pacsave, pacnew, pacorig, warning """
     try:
@@ -173,33 +207,9 @@ def read_journalctl():
     print()
 
 
-def read_rc_log():
-    """ Lists entries with keywords: WARNING: on OpenRC log file """
-    print('==============')
-    print('|   rc.log   |   Lists entries with WARNING: keywords - (OpenRC only, logging need to be enabled)')
-    print('==============')
-    try:
-        with open('/var/log/rc.log', 'r') as f:
-            for line in f:
-                if 'WARNING:' in line:
-                    print(line, end='')
-        print()
-    except:
-        print('Missing file: rc.log   If this is OpenRC with logging enabled?')
-
-
-def rc_status():
-    """ Lists status of all services on OpenRC """
-    print('===============')
-    print('|  rc_status  |   Lists all services "rc-status --all" - (OpenRC only, logging need to be enabled)')
-    print('===============')
-    try:
-        os.system('rc-status --all')
-        print()
-    except:
-        print('Is this OpenRC init based system?')
-
 inxi()
+dmesg_error()
+dmesg_fail()
 mhwd_li()
 mhwd_l()
 hwinfo_gfxcard()
@@ -211,6 +221,6 @@ check_bios()
 read_xorg0()
 read_xorg1()
 read_journalctl()
+orphaned()
 read_pacman()
-rc_status()
-read_rc_log()
+print('... finished :-)')

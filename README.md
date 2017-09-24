@@ -1,6 +1,8 @@
-# logsgui.py (Manjaro Logs)
+## logs.py (Manjaro Logs)
+## logsgui.py (Manjaro Logs)
 
-    logsgui.py runs on Python 3.6, needs: python-pyqt4, python-sh & xdg-utils
+    logs.py    runs on Python 3.6 shows more info than gui part
+    logsgui.py runs on Python 3.6, needs: python-pyqt4, python-sh & xdg-utils, I'm not updating it any more
 
 Idea is, to collect different kind of computer info and error msgs from different log files on Arch based Manjaro Linux and display them all at the same time for easier troubleshooting. It is meant to help with troubleshoting in a simple and beginner friendly way :-).
 

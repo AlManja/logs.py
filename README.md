@@ -13,11 +13,6 @@ On OpenRC based systems, it will search for 'WARNINGS' if you have logging enabl
 
 Select files/logs you want to search. If you select Inxi, make sure you have it installed :-)
 
-For better control over the size of the output, journalctl is split into 4 searches each for each keyword: emergency, alert, critical, failed
-
-    /var/log/Xorg.0.log <= failed, error, (WW)
-    /var/log/pacman.log <= pacsave, pacnew, pacorig, warning    (Arch specific file)
-    /tmp/journalctl.txt <= emergency, alert, critical, failed
 
 Big thanks to:
 

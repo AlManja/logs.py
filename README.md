@@ -1,5 +1,5 @@
-## logs.py (Manjaro Logs)
-## logsgui.py (Manjaro Logs)
+## logs.py (Manjaro Logs, CLI version)
+## logsgui.py (Manjaro Logs, GUI version)
 
     logs.py    runs on Python 3.6 shows more info than gui part
     logsgui.py runs on Python 3.6, needs: python-pyqt4, python-sh & xdg-utils, I'm not updating it any more

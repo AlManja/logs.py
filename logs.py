@@ -118,7 +118,7 @@ def blockdev():
 
 
 def check_bios():
-    """ Checks if installatuon type matches partition table type """
+    """ Checks if installation type matches partition table type """
     print('=============')
     print("| parted -l |   Installation match partition table type?")
     print('=============')
